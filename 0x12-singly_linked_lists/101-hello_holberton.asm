@@ -1,13 +1,16 @@
-section .data
-    format db 'Hello, Holberton', 0
+SECTION .data
+msg:    db "Hello, Holberton", 0
+fmt:    db "%s", 10, 0
 
-section .text
-    global main
-    extern printf
+SECTION .text
+extern printf
+global main
 
 main:
-    mov edi, format
+    mov esi, msg
+    mov edi, fmt
     xor eax, eax
     call printf
+
     xor eax, eax  ; Set return value to 0
     ret
