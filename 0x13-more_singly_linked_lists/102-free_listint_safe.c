@@ -9,28 +9,20 @@
 size_t free_listint_safe(listint_t **h)
 {
 	size_t len = 0;
-	listint_t *current = *h;
-	listint_t *next = NULL;
+	listint_t *current, *next;
 
 	if (h == NULL || *h == NULL)
 		return (0);
 
+	current = *h;
 	while (current != NULL)
 	{
 		next = current->next;
-
-		/* Check if current node has been visited before */
-		if (current < next)
-		{
-			free(current);
-			len++;
-			current = next;
-		}
-		else
-		{
-			free(current);
+		free(current);
+		len++;
+		if (next >= current)
 			break;
-		}
+		current = next;
 	}
 
 	*h = NULL;
