@@ -15,7 +15,7 @@ size_t looped_listint_len(const listint_t *head)
 {
 	const listint_t *tortoise = head;
 	const listint_t *hare = head;
-	size_t nodes = 0;
+	size_t nodes = 1;
 	int loop_found = 0;
 
 	while (tortoise && hare && hare->next)
