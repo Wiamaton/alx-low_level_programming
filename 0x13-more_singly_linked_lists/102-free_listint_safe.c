@@ -22,16 +22,16 @@ size_t free_listint_safe(listint_t **h)
                 /* Check for a loop */
                 if (next >= current)
                 {
+                        *h = NULL;
                         free(current);
                         len++;
-                        *h = NULL;
                         break;
                 }
 
                 /* Free current node */
+                *h = next;
                 free(current);
                 len++;
-                *h = next;
         }
 
         return (len);
