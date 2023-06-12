@@ -12,23 +12,30 @@
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
-	FILE *file;
-	int result = -1;
+	int fd;
+	int nletters;
+	int rwr;
 
-	if (filename == NULL)
+	if (!filename)
 		return (-1);
 
-	file = fopen(filename, "a");
-	if (file == NULL)
+	fd = open(filename, O_WRONLY | O_APPEND);
+
+	if (fd == -1)
 		return (-1);
 
-	if (text_content != NULL)
+	if (text_content)
 	{
-		fputs(text_content, file);
-		result = (1);
+		for (nletters = 0; text_content[nletters]; nletters++)
+			;
+
+		rwr = write(fd, text_content, nletters);
+
+		if (rwr == -1)
+			return (-1);
 	}
 
-	fclose(file);
+	close(fd);
 
-	return (result);
+	return (1);
 }
